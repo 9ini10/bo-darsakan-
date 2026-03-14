@@ -8,7 +8,6 @@
         body {
             margin: 0;
             padding: 0;
-            /* بەکارهێنانی dvh زۆر باشترە بۆ شاشەی مۆبایل */
             height: 100vh;
             height: 100dvh; 
             display: flex;
@@ -23,7 +22,7 @@
 
         .container {
             text-align: center;
-            padding-bottom: 60px; /* مەودای زیاتر بۆ ئەوەی لە مۆبایل تێکەڵ نەبن */
+            padding-bottom: 70px; /* کەمێک مەودای زیاترم دانا بۆ ئەوەی جێگەی دوو دێڕەکە ببێتەوە */
         }
 
         .container img {
@@ -73,23 +72,24 @@
         }
 
         /* ------------------------------------- */
-        /* چارەسەری فوتەرەکە بۆ مۆبایل */
+        /* فوتەرەکە گۆڕدرا بۆ شێوازی ستوونی (ژێر یەکتر) */
         /* ------------------------------------- */
         footer {
-            position: fixed; /* گۆڕدرا بۆ fixed بۆ ئەوەی هەرگیز وون نەبێت */
-            bottom: 20px;
+            position: fixed; 
+            bottom: 15px; /* کەمێک هێنامە خوارەوە */
             left: 0;
             width: 100%;
             display: flex;
+            flex-direction: column; /* ئەمە وادەکات ناوەکەت بچێتە ژێر نوسینەکە */
             justify-content: center;
             align-items: center;
-            gap: 10px; 
-            z-index: 1000; /* دڵنیابوون لەوەی هەمیشە لە پێشەوەیە */
+            gap: 8px; /* مەودای نێوان نوسینەکە و ناوەکەت */
+            z-index: 1000; 
         }
 
         footer p {
             margin: 0; 
-            font-size: 1rem;
+            font-size: 0.95rem; /* کەمێک نوسینەکەم بچووک کردەوە بۆ جوانی */
             color: #b85e6d;
             font-weight: bold;
             font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -151,8 +151,7 @@
             const maxY = window.innerHeight - noBtn.offsetHeight;
 
             const safeX = Math.max(0, maxX - 20);
-            /* مەوداکەم زیاتر کرد بۆ ئەوەی دوگمەکە هەرگیز نەچێتە سەر ناوەکەت */
-            const safeY = Math.max(0, maxY - 90); 
+            const safeY = Math.max(0, maxY - 100); /* بۆشاییەکەیم زیاتر کرد بۆ سەلامەتی فوتەرەکە */
 
             const randomX = Math.floor(Math.random() * safeX);
             const randomY = Math.floor(Math.random() * safeY);
