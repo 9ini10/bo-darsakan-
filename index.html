@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Do you love me?</title>
     <style>
         body {
@@ -15,6 +15,7 @@
             background-color: #fae4e8;
             font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
             overflow: hidden;
+            touch-action: none; /* ئەمەم زیاد کردووە بۆ ئەوەی لە مۆبایل شاشەکە نەجوڵێت */
         }
 
         .container {
@@ -23,14 +24,16 @@
 
         .container img {
             width: 300px;
+            max-width: 90%; /* بۆ ئەوەی لە شاشەی بچووکدا وێنەکە تێک نەچێت */
             border-radius: 15px;
             margin-bottom: 20px;
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: #1a1a1a;
             margin-bottom: 30px;
+            padding: 0 10px;
         }
 
         .buttons-container {
@@ -38,6 +41,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
+            height: 60px; /* جێگیرکردنی بەرزییەکەی بۆ ئەوەی دوگمەکان شوێنیان تێک نەچێت */
         }
 
         button {
@@ -51,6 +55,9 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(209, 117, 133, 0.4);
             transition: transform 0.2s, background-color 0.2s;
+            /* ڕێگریکردن لە دیاریکردنی تێکستەکە لە کاتی پەنجەدان */
+            -webkit-user-select: none;
+            user-select: none; 
         }
 
         #yes-btn:hover {
@@ -59,7 +66,7 @@
         }
 
         #no-btn {
-            position: relative;
+            position: absolute; /* گۆڕیم بۆ Absolute بۆ ئەوەی لە مۆبایل کێشە دروست نەکات */
             transition: 0.1s;
         }
     </style>
@@ -83,24 +90,41 @@
         const mainImage = document.getElementById('main-image');
         const question = document.getElementById('question');
 
-        noBtn.addEventListener('mouseover', () => {
+        // فەنکشنێک بۆ ڕاکردنی دوگمەکە
+        function moveNoButton(e) {
+            // ڕێگری دەکات لەوەی پەنجەدانەکە وەک کلیکێکی ئاسایی بخوێندرێتەوە
+            if (e) {
+                e.preventDefault(); 
+            }
+
             const maxX = window.innerWidth - noBtn.offsetWidth;
             const maxY = window.innerHeight - noBtn.offsetHeight;
 
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
+            // دروستکردنی کەمێک بۆشایی بۆ ئەوەی نەچێتە دەرەوەی شاشەکە
+            const safeX = Math.max(0, maxX - 20);
+            const safeY = Math.max(0, maxY - 20);
 
-            noBtn.style.position = 'fixed';
+            const randomX = Math.floor(Math.random() * safeX);
+            const randomY = Math.floor(Math.random() * safeY);
+
+            // دانانی دوگمەکە لە شوێنە نوێیەکە
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
-        });
+        }
 
+        // کاتێک بە ماوس دەچیتە سەری (بۆ کۆمپیوتەر)
+        noBtn.addEventListener('mouseover', moveNoButton);
+        
+        // کاتێک هەوڵ دەدەیت پەنجەی لێ بدەیت (بۆ مۆبایل)
+        noBtn.addEventListener('touchstart', moveNoButton);
+
+        // کۆدی داگرتنی بەڵێ
         yesBtn.addEventListener('click', () => {
             question.innerHTML = "I knew it! I love you too! ❤️";
             yesBtn.style.display = 'none';
             noBtn.style.display = 'none';
             
-            // لێرەدا ناوی ئەو وێنەیە بنووسە کە دەتەوێت لە کاتی داگرتنی بەڵێ پیشان بدرێت
+            // ناوی وێنەکەی دووەمت دابنێ (image2.gif)
             mainImage.src = "image2.gif";
         });
     </script>
