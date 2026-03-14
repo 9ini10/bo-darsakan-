@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do you love me?</title>
+    <style>
+        /* ڕێکخستنی شاشە و پاشبنەما */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fae4e8; /* ڕەنگی پەمەیی کاڵی وەکو ڕەسمەکە */
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
+            overflow: hidden; /* بۆ ئەوەی دوگمەکە نەچێتە دەرەوەی شاشەکە و سکڕۆڵ دروست نەکات */
+        }
+
+        /* بۆکسی ناوەڕاست */
+        .container {
+            text-align: center;
+        }
+
+        /* وێنەکە */
+        .container img {
+            width: 300px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* نوسینەکە */
+        h1 {
+            font-size: 3rem;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+        }
+
+        /* ڕێکخستنی دوگمەکان */
+        .buttons-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* مەودای نێوان دوگمەی یەس و نۆ */
+        }
+
+        button {
+            padding: 12px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            background-color: #d17585; /* ڕەنگی دوگمەکە */
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(209, 117, 133, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        /* کاتێک ماوس دەچێتە سەر دوگمەی یەس */
+        #yes-btn:hover {
+            background-color: #b85e6d;
+            transform: scale(1.1);
+        }
+
+        /* دوگمەی نۆ */
+        #no-btn {
+            position: relative; /* سەرەتا لە جێگەی خۆیەتی */
+            transition: 0.1s; /* خێرایی ڕاکردنەکەی */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img id="main-image" src="https://media.tenor.com/_pfZZ7R8PjwAAAAj/tkthao219-bubududu.gif" alt="Cute Panda Bear">
+        
+        <h1 id="question">Do you love me?</h1>
+        
+        <div class="buttons-container">
+            <button id="yes-btn">Yes</button>
+            <button id="no-btn">No</button>
+        </div>
+    </div>
+
+    <script>
+        // هێنانە ناوەوەی دوگمەکان لە HTML ـەوە بۆ ناو جاڤاسکریپت
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+        const mainImage = document.getElementById('main-image');
+        const question = document.getElementById('question');
+
+        // کۆدی ڕاکردنی دوگمەی نەخێر (No)
+        noBtn.addEventListener('mouseover', () => {
+            // دۆزینەوەی قەبارەی شاشەکە بۆ ئەوەی دوگمەکە لێی نەچێتە دەرەوە
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+
+            // دروستکردنی ژمارەی هەڕەمەکی بۆ شوێنی نوێی دوگمەکە
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            // گۆڕینی شوێنی دوگمەکە
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        });
+
+        // کۆدی کاتی داگرتنی دوگمەی بەڵێ (Yes)
+        yesBtn.addEventListener('click', () => {
+            // گۆڕینی نوسینەکە
+            question.innerHTML = "I knew it! I love you too! ❤️";
+            // شاردنەوەی دوگمەکان
+            yesBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            // گۆڕینی وێنەکە بۆ وێنەیەکی دڵخۆشکەر (دەتوانیت بیگۆڕیت)
+            mainImage.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+        });
+    </script>
+
+</body>
+</html>
