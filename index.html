@@ -16,11 +16,12 @@
             font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
             overflow: hidden;
             touch-action: none;
-            position: relative; /* ئەمەم زیاد کرد بۆ جێگیرکردنی فوتەرەکە */
+            position: relative; 
         }
 
         .container {
             text-align: center;
+            padding-bottom: 50px; /* ئەمەم زیاد کرد بۆ ئەوەی دوگمەکان نەچنە سەر فوتەرەکە */
         }
 
         .container img {
@@ -66,20 +67,52 @@
         #no-btn {
             position: relative;
             transition: 0.1s;
-            z-index: 100; /* بۆ ئەوەی دوگمەکە هەمیشە لەسەرووی هەموو شتێکەوە بێت */
+            z-index: 100; 
         }
 
-        /* ستایلی فوتەرەکە کە هەمیشە لە خوارەوە دەبێت */
+        /* ------------------------------------- */
+        /* ستایلی نوێی فوتەرەکە (زۆر شاز و ڕێکخراو) */
+        /* ------------------------------------- */
         footer {
             position: absolute;
-            bottom: 20px;
+            bottom: 25px;
             width: 100%;
-            text-align: center;
-            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* مەودای نێوان نوسینەکە و ناوەکەی تۆ */
+        }
+
+        footer p {
+            margin: 0; /* لابردنی بۆشاییە زیادەکەی پێشوو */
+            font-size: 1rem;
             color: #b85e6d;
             font-weight: bold;
             font-family: 'Segoe UI', Tahoma, sans-serif;
         }
+
+        footer a {
+            text-decoration: none; /* لابردنی هێڵی ژێر لینکەکە */
+            color: #d17585;
+            font-weight: 900;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: rgba(255, 255, 255, 0.6); /* پاشبنەمایەکی سپی کاڵ */
+            padding: 6px 15px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 10px rgba(209, 117, 133, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        /* جوڵە کاتێک ماوس دەچێتە سەر ناوەکەی تۆ */
+        footer a:hover {
+            background-color: #d17585;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(209, 117, 133, 0.3);
+        }
+        /* ------------------------------------- */
+
     </style>
 </head>
 <body>
@@ -95,9 +128,10 @@
         </div>
     </div>
 
-    <footer>  <p class="lang-text" data-ku="پەرەپێدراوە لەلایەن" data-en="Powered by">پەرەپێدراوە لەلایەن</p>
-        <a href="https://t.me/ebol_4" target="_blank"> E B O L A </a>
-  </footer>
+    <footer> 
+        <p class="lang-text" data-ku="پەرەپێدراوە لەلایەن" data-en="Powered by">پەرەپێدراوە لەلایەن</p>
+        <a href="https://t.me/ebol_4" target="_blank">E B O L A</a>
+    </footer>
 
     <script>
         const yesBtn = document.getElementById('yes-btn');
@@ -116,8 +150,8 @@
             const maxY = window.innerHeight - noBtn.offsetHeight;
 
             const safeX = Math.max(0, maxX - 20);
-            /* کەمێک بۆشاییم بۆ خوارەوە زیاد کرد بۆ ئەوەی دوگمەکە نەچێتە ژێر فوتەرەکە */
-            const safeY = Math.max(0, maxY - 60); 
+            /* زیادکردنی مەودای زیاتر بۆ خوارەوە بۆ ئەوەی نەچێتە سەر فوتەرەکە */
+            const safeY = Math.max(0, maxY - 80); 
 
             const randomX = Math.floor(Math.random() * safeX);
             const randomY = Math.floor(Math.random() * safeY);
