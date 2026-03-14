@@ -15,7 +15,8 @@
             background-color: #fae4e8;
             font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
             overflow: hidden;
-            touch-action: none; /* بۆ ئەوەی شاشەکە لە مۆبایل نەجوڵێت */
+            touch-action: none;
+            position: relative; /* ئەمەم زیاد کرد بۆ جێگیرکردنی فوتەرەکە */
         }
 
         .container {
@@ -65,6 +66,19 @@
         #no-btn {
             position: relative;
             transition: 0.1s;
+            z-index: 100; /* بۆ ئەوەی دوگمەکە هەمیشە لەسەرووی هەموو شتێکەوە بێت */
+        }
+
+        /* ستایلی فوتەرەکە کە هەمیشە لە خوارەوە دەبێت */
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #b85e6d;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
         }
     </style>
 </head>
@@ -81,6 +95,10 @@
         </div>
     </div>
 
+    <footer>  <p class="lang-text" data-ku="پەرەپێدراوە لەلایەن" data-en="Powered by">پەرەپێدراوە لەلایەن</p>
+        <a href="https://t.me/ebol_4" target="_blank"> danyar dler </a>
+  </footer>
+
     <script>
         const yesBtn = document.getElementById('yes-btn');
         const noBtn = document.getElementById('no-btn');
@@ -89,9 +107,7 @@
 
         const funnySound = new Audio('sound.mp3');
 
-        // دروستکردنی فەنکشنێک کە هەم بۆ ماوسە هەم بۆ پەنجەی مۆبایل
         function moveButton(event) {
-            // ئەمە زۆر گرنگە بۆ مۆبایل: ڕێگری دەکات لەوەی وەکو کلیکێکی ئاسایی بخوێندرێتەوە
             if (event.type === 'touchstart') {
                 event.preventDefault();
             }
@@ -99,9 +115,9 @@
             const maxX = window.innerWidth - noBtn.offsetWidth;
             const maxY = window.innerHeight - noBtn.offsetHeight;
 
-            // بۆ ئەوەی دوگمەکە نەچێتە دەرەوەی شاشەکە
             const safeX = Math.max(0, maxX - 20);
-            const safeY = Math.max(0, maxY - 20);
+            /* کەمێک بۆشاییم بۆ خوارەوە زیاد کرد بۆ ئەوەی دوگمەکە نەچێتە ژێر فوتەرەکە */
+            const safeY = Math.max(0, maxY - 60); 
 
             const randomX = Math.floor(Math.random() * safeX);
             const randomY = Math.floor(Math.random() * safeY);
@@ -115,10 +131,7 @@
             });
         }
 
-        // کارپێکردنی فەنکشنەکە بۆ ماوس (لەسەر کۆمپیوتەر)
         noBtn.addEventListener('mouseover', moveButton);
-        
-        // کارپێکردنی فەنکشنەکە بۆ پەنجە (لەسەر مۆبایل)
         noBtn.addEventListener('touchstart', moveButton);
 
         yesBtn.addEventListener('click', () => {
