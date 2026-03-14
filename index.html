@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Do you love me?</title>
     <style>
         body {
@@ -15,6 +15,7 @@
             background-color: #fae4e8;
             font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
             overflow: hidden;
+            touch-action: none; /* بۆ ئەوەی شاشەکە لە مۆبایل نەجوڵێت */
         }
 
         .container {
@@ -23,6 +24,7 @@
 
         .container img {
             width: 300px;
+            max-width: 90%;
             border-radius: 15px;
             margin-bottom: 20px;
         }
@@ -51,6 +53,8 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(209, 117, 133, 0.4);
             transition: transform 0.2s, background-color 0.2s;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         #yes-btn:hover {
@@ -83,33 +87,44 @@
         const mainImage = document.getElementById('main-image');
         const question = document.getElementById('question');
 
-        // پێناسەکردنی دەنگەکە لێرەدا
         const funnySound = new Audio('sound.mp3');
 
-        noBtn.addEventListener('mouseover', () => {
+        // دروستکردنی فەنکشنێک کە هەم بۆ ماوسە هەم بۆ پەنجەی مۆبایل
+        function moveButton(event) {
+            // ئەمە زۆر گرنگە بۆ مۆبایل: ڕێگری دەکات لەوەی وەکو کلیکێکی ئاسایی بخوێندرێتەوە
+            if (event.type === 'touchstart') {
+                event.preventDefault();
+            }
+
             const maxX = window.innerWidth - noBtn.offsetWidth;
             const maxY = window.innerHeight - noBtn.offsetHeight;
 
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
+            // بۆ ئەوەی دوگمەکە نەچێتە دەرەوەی شاشەکە
+            const safeX = Math.max(0, maxX - 20);
+            const safeY = Math.max(0, maxY - 20);
+
+            const randomX = Math.floor(Math.random() * safeX);
+            const randomY = Math.floor(Math.random() * safeY);
 
             noBtn.style.position = 'fixed';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
 
-            // لێدانی دەنگەکە لە کاتی ڕاکردنی دوگمەکە
             funnySound.play().catch(error => {
-                // ئەمە بۆ ئەوەیە ئەگەر وێبگەڕەکە ڕێگری کرد لە لێدانی دەنگ پێش ئەوەی بەکارهێنەر کلیک بکات، کێشە دروست نەبێت
                 console.log("پێویستە بەکارهێنەر یەکەم جار کلیکێکی شاشەکە بکات بۆ ئەوەی دەنگەکە کار بکات");
             });
-        });
+        }
+
+        // کارپێکردنی فەنکشنەکە بۆ ماوس (لەسەر کۆمپیوتەر)
+        noBtn.addEventListener('mouseover', moveButton);
+        
+        // کارپێکردنی فەنکشنەکە بۆ پەنجە (لەسەر مۆبایل)
+        noBtn.addEventListener('touchstart', moveButton);
 
         yesBtn.addEventListener('click', () => {
             question.innerHTML = "I knew it! I love you too! ❤️";
             yesBtn.style.display = 'none';
             noBtn.style.display = 'none';
-            
-            // ناوی وێنەی دووەم
             mainImage.src = "image2.gif";
         });
     </script>
