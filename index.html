@@ -8,7 +8,9 @@
         body {
             margin: 0;
             padding: 0;
+            /* بەکارهێنانی dvh زۆر باشترە بۆ شاشەی مۆبایل */
             height: 100vh;
+            height: 100dvh; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,7 +23,7 @@
 
         .container {
             text-align: center;
-            padding-bottom: 50px; /* ئەمەم زیاد کرد بۆ ئەوەی دوگمەکان نەچنە سەر فوتەرەکە */
+            padding-bottom: 60px; /* مەودای زیاتر بۆ ئەوەی لە مۆبایل تێکەڵ نەبن */
         }
 
         .container img {
@@ -71,20 +73,22 @@
         }
 
         /* ------------------------------------- */
-        /* ستایلی نوێی فوتەرەکە (زۆر شاز و ڕێکخراو) */
+        /* چارەسەری فوتەرەکە بۆ مۆبایل */
         /* ------------------------------------- */
         footer {
-            position: absolute;
-            bottom: 25px;
+            position: fixed; /* گۆڕدرا بۆ fixed بۆ ئەوەی هەرگیز وون نەبێت */
+            bottom: 20px;
+            left: 0;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px; /* مەودای نێوان نوسینەکە و ناوەکەی تۆ */
+            gap: 10px; 
+            z-index: 1000; /* دڵنیابوون لەوەی هەمیشە لە پێشەوەیە */
         }
 
         footer p {
-            margin: 0; /* لابردنی بۆشاییە زیادەکەی پێشوو */
+            margin: 0; 
             font-size: 1rem;
             color: #b85e6d;
             font-weight: bold;
@@ -92,11 +96,11 @@
         }
 
         footer a {
-            text-decoration: none; /* لابردنی هێڵی ژێر لینکەکە */
+            text-decoration: none; 
             color: #d17585;
             font-weight: 900;
             font-family: 'Segoe UI', Tahoma, sans-serif;
-            background-color: rgba(255, 255, 255, 0.6); /* پاشبنەمایەکی سپی کاڵ */
+            background-color: rgba(255, 255, 255, 0.6); 
             padding: 6px 15px;
             border-radius: 20px;
             letter-spacing: 1px;
@@ -104,15 +108,12 @@
             transition: all 0.3s ease;
         }
 
-        /* جوڵە کاتێک ماوس دەچێتە سەر ناوەکەی تۆ */
         footer a:hover {
             background-color: #d17585;
             color: white;
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(209, 117, 133, 0.3);
         }
-        /* ------------------------------------- */
-
     </style>
 </head>
 <body>
@@ -150,8 +151,8 @@
             const maxY = window.innerHeight - noBtn.offsetHeight;
 
             const safeX = Math.max(0, maxX - 20);
-            /* زیادکردنی مەودای زیاتر بۆ خوارەوە بۆ ئەوەی نەچێتە سەر فوتەرەکە */
-            const safeY = Math.max(0, maxY - 80); 
+            /* مەوداکەم زیاتر کرد بۆ ئەوەی دوگمەکە هەرگیز نەچێتە سەر ناوەکەت */
+            const safeY = Math.max(0, maxY - 90); 
 
             const randomX = Math.floor(Math.random() * safeX);
             const randomY = Math.floor(Math.random() * safeY);
